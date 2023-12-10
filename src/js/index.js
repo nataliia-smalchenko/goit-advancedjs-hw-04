@@ -82,7 +82,6 @@ async function searchMoreImages(text) {
       },
     });
     const data = response.data.hits;
-    console.log(maxPages);
     elements.gallery.insertAdjacentHTML('beforeend', createPhotoMarkup(data));
     gallery.refresh();
 
@@ -90,7 +89,6 @@ async function searchMoreImages(text) {
       elements.loadBtn.hidden = false;
     }
   } catch (error) {
-    console.log(error);
     showMessage('error', 'Oops! Something went wrong! Please try again.');
   }
 }
