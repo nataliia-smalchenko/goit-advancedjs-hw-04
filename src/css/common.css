@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: var(--main-font);
   font-size: 16px;
-  background-color: var(--white);
+  background-color: rgb(248, 241, 210);
   color: var(--black);
   position: relative;
 }
@@ -51,4 +51,17 @@ img {
 .link {
   text-decoration: none;
   cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

@@ -5,7 +5,6 @@
   padding: 12px;
   display: flex;
   justify-content: center;
-  width: 100%;
   column-gap: 12px;
   position: sticky;
   top: 0;
@@ -32,4 +31,65 @@
 .form-button:hover {
   background-color: rgb(239, 153, 229);
   /* color: var(--white); */
+}
+
+.gallery {
+  padding: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.photo-card {
+  border-radius: 8px;
+  align-content: space-between;
+  background-color: var(--white);
+  width: calc((100% - 3 * 20px) / 4);
+}
+
+.photo-card:hover {
+  -webkit-box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.34);
+  box-shadow: 0px 1px 10px 0px rgba(0, 0, 0, 0.34);
+}
+
+.gallery-image {
+  object-fit: cover;
+  width: 100%;
+  height: calc((100vw - 3 * 20px - 2 * 24px) / 6);
+}
+
+.load-button-wrapper {
+  width: 100%;
+  display: flex;
+}
+
+.load-more {
+  padding: 8px 16px;
+  font-size: 18px;
+  font-family: inherit;
+  border-radius: 4px;
+  border: none;
+  background-color: #733aa8;
+  color: var(--white);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+}
+
+.load-more:hover {
+  background-color: #542085;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px;
+}
+
+.info-item {
+  text-align: center;
 }
