@@ -36,20 +36,15 @@ async function searchImages(text) {
   elements.loadBtn.hidden = true;
   elements.gallery.innerHTML = '';
   page = 1;
+
+  text = text.trim();
+  if (!text) {
+    showMessage('error', 'Please, enter text and try again.');
+    return;
+  }
   try {
-    const response = await axios.get('https://pixabay.com/api/', {
-      params: {
-        key,
-        q: text,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        page,
-        per_page: 40,
-      },
-    });
+    const response = await fetchImages(text);
     maxPages = Math.ceil(response.data.totalHits / 40);
-    showMessage('info', `Hooray! We found ${response.data.totalHits} images.`);
     const data = response.data.hits;
     if (!data.length) {
       showMessage(
@@ -57,9 +52,21 @@ async function searchImages(text) {
         'Sorry, there are no images matching your search query. Please try again.'
       );
     } else {
+      showMessage(
+        'info',
+        `Hooray! We found ${response.data.totalHits} images.`
+      );
       elements.gallery.innerHTML = createPhotoMarkup(data);
       gallery.refresh();
-      elements.loadBtn.hidden = false;
+
+      if (page < maxPages) {
+        elements.loadBtn.hidden = false;
+      } else {
+        showMessage(
+          'info',
+          "We're sorry, but you've reached the end of search results."
+        );
+      }
     }
   } catch (error) {
     showMessage('error', 'Oops! Something went wrong! Please try again.');
@@ -69,24 +76,20 @@ async function searchImages(text) {
 async function searchMoreImages(text) {
   elements.loadBtn.hidden = true;
   page += 1;
+
   try {
-    const response = await axios.get('https://pixabay.com/api/', {
-      params: {
-        key,
-        q: text,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        page,
-        per_page: 40,
-      },
-    });
+    const response = await fetchImages(text);
     const data = response.data.hits;
     elements.gallery.insertAdjacentHTML('beforeend', createPhotoMarkup(data));
     gallery.refresh();
 
     if (page < maxPages) {
       elements.loadBtn.hidden = false;
+    } else {
+      showMessage(
+        'info',
+        "We're sorry, but you've reached the end of search results."
+      );
     }
   } catch (error) {
     showMessage('error', 'Oops! Something went wrong! Please try again.');
@@ -157,5 +160,19 @@ function showMessage(type, message) {
     timeout: 3000,
     targetFirst: false,
     message: message,
+  });
+}
+
+function fetchImages(text) {
+  return axios.get('https://pixabay.com/api/', {
+    params: {
+      key,
+      q: text,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+      page,
+      per_page: 40,
+    },
   });
 }
