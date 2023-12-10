@@ -39,7 +39,7 @@ async function searchImages(text) {
 
   text = text.trim();
   if (!text) {
-    showMessage('error', 'Please, enter text and try again.');
+    showMessage('error', 'Please, enter text to search and try again.');
     return;
   }
   try {
